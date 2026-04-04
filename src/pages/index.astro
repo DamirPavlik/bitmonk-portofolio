@@ -1,0 +1,84 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import PostPreview from "@/components/blog/PostPreview.astro";
+import Note from "@/components/note/Note.astro";
+import SocialList from "@/components/SocialList.astro";
+import { getAllPosts } from "@/data/post";
+import PageLayout from "@/layouts/Base.astro";
+import { collectionDateSort } from "@/utils/date";
+
+// Posts
+const MAX_POSTS = 10;
+const allPosts = await getAllPosts();
+const allPostsByDate = allPosts.sort(collectionDateSort) as CollectionEntry<"post">[];
+const latestPosts = allPostsByDate.slice(0, MAX_POSTS);
+
+// Notes, set to a max of 5
+const MAX_NOTES = 5;
+const allNotes = await getCollection("note");
+const latestNotes = allNotes
+	.sort(collectionDateSort)
+	.slice(0, MAX_NOTES) as CollectionEntry<"note">[];
+
+function getAge() {
+	const today = new Date();
+	const birth = new Date("2004-12-04");
+
+	let age = today.getFullYear() - birth.getFullYear();
+
+	const hasHadBirthdayThisYear =
+		today.getMonth() > birth.getMonth() ||
+		(today.getMonth() === birth.getMonth() && today.getDate() >= birth.getDate());
+
+	if (!hasHadBirthdayThisYear) {
+		age--;
+	}
+
+	return age;
+}
+---
+
+<PageLayout meta={{ title: "Home" }}>
+	<section>
+		<h1 class="title mb-8">Hello, I'm <span class="text-accent">Damir Pavlik</span></h1>
+		<p class="mb-4">
+			I’m a {getAge()} year old software developer with {new Date().getFullYear() - 2023} years of industry
+			experience, this is where I document the journey, not just the results.
+		</p>
+		<p class="mb-6">
+			Here, you’ll find my thoughts on software development, lessons from building real world
+			projects, and posts about what I’m currently learning. I also share perspectives on various
+			topics and break down coding challenges I find interesting. I’m especially interested in
+			backend development, real-time systems, and building things from the ground up.
+		</p>
+		<SocialList />
+	</section>
+	<section class="mt-16">
+		<h2 class="title mb-6 text-xl"><a href="/posts/">Posts</a></h2>
+		<ul class="space-y-4" role="list">
+			{
+				latestPosts.map((p) => (
+					<li class="grid gap-1 sm:grid-cols-[auto_1fr]">
+						<PostPreview post={p} />
+					</li>
+				))
+			}
+		</ul>
+	</section>
+	{
+		latestNotes.length > 0 && (
+			<section class="mt-16">
+				<h2 class="title text-accent mb-6 text-xl">
+					<a href="/notes/">Notes</a>
+				</h2>
+				<ul class="space-y-6" role="list">
+					{latestNotes.map((note) => (
+						<li>
+							<Note note={note} as="h3" isPreview />
+						</li>
+					))}
+				</ul>
+			</section>
+		)
+	}
+</PageLayout>
