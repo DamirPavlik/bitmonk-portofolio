@@ -17,12 +17,12 @@ const post = defineCollection({
 	schema: ({ image }) =>
 		baseSchema.extend({
 			description: z.string(),
-			coverImage: z
-				.object({
-					alt: z.string(),
-					src: image(),
-				})
-				.optional(),
+			// coverImage: z
+			// 	.object({
+			// 		alt: z.string(),
+			// 		src: image(),
+			// 	})
+			// 	.optional(),
 			draft: z.boolean().default(false),
 			ogImage: z.string().optional(),
 			tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
