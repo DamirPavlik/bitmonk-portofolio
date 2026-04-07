@@ -1,8 +1,9 @@
 ---
 import PageLayout from "@/layouts/Base.astro";
+import { getAge } from "@/utils/date";
 
 const meta = {
-	description: "About Damir Pavlik - 21 year old software engineer",
+	description: "About Damir Pavlik.",
 	title: "About",
 };
 ---
@@ -11,17 +12,46 @@ const meta = {
 	<h1 class="title mb-12">About Me</h1>
 	<div class="prose prose-sm prose-cactus max-w-none">
 		<p>
-			Hi, I’m Damir Pavlik. I’m a 21 year old software engineer passionate about building things
-			from the ground up.
+			I’m Damir Pavlik, a {getAge()} year old software engineer who enjoys building things from the ground
+			up and understanding how they work beneath the surface.
 		</p>
 		<p>
-			I’m particularly interested in backend development and real-time systems. This blog is where
-			I document my journey, share lessons from building real-world projects, and break down
-			coding challenges I find interesting.
+			My journey into programming started early. I first touched code at 12 in school, experimenting
+			with basic web development, but it didn’t fully click at the time. That changed when I
+			enrolled in an IT high school. I remember struggling with C, it felt difficult, almost
+			frustrating, but that challenge is exactly what pulled me in. I went home that same day and
+			started learning on my own. What began as curiosity quickly turned into obsession.
 		</p>
 		<p>
-			When I’m not coding, you can find me exploring new technologies, contributing to open source,
-			or working on personal projects that push me to grow as a developer.
+			I explored Python first, then moved into web development, where things really started to take
+			shape. At 17, I landed my first client—a local business that needed a website.
+		</p>
+		<p>
+			At 18, right after finishing high school, I got my first job at a tech company and immediately
+			started working on a major project. Early on, I handled a wide range of responsibilities, from
+			building API endpoints and backend systems to creating custom frontends and working with
+			WordPress. I had to adapt quickly, learn fast, and solve real problems under pressure. Over
+			time, the company grew, and so did I.
+		</p>
+		<p>
+			I’m the type of developer who doesn’t just want to use tools, I want to understand how they
+			work internally, and sometimes even rebuild them from scratch.
+		</p>
+		<p>
+			If you're looking for a developer who's all about speed and cutting corners, we are probably
+			not the right fit. If, however, you want to work with someone who’s been around the block a
+			few times and consistently delivers on promises, then we are indeed the right fit
+		</p>
+		<p>
+			This blog is where I document that journey. I write about what I’m learning, the problems I
+			encounter, and the systems I build, from simple ideas to more complex challenges. It’s a place
+			for me to think out loud, refine my understanding, and share insights with others who enjoy
+			building just as much as I do.
+		</p>
+		<p>
+			When I’m not working, I’m usually experimenting with new technologies, building personal
+			projects, or diving deeper into low-level concepts like networking and protocols—always trying
+			to push my skills a bit further.
 		</p>
 	</div>
 </PageLayout>
