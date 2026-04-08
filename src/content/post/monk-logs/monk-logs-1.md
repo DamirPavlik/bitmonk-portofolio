@@ -2,7 +2,7 @@
 title: "Monk Logs 1 (DSA): Big O"
 description: "Big O Time Complexity"
 publishDate: "6 April 2026"
-updatedDate: "6 April 2025"
+updatedDate: "6 April 2026"
 tags: ["dsa", "monklogs", "data structures", "alogirthms", "bigO", "time complexity"]
 ---
 

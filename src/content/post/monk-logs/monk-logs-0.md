@@ -1,8 +1,8 @@
 ---
-title: "Monk Logs 0 (DSA): Prelude"
-description: "The Prelude."
+title: "Monk Logs 0 (DSA): The Hook"
+description: "The Hook."
 publishDate: "5 April 2026"
-updatedDate: "5 April 2025"
+updatedDate: "5 April 2026"
 tags: ["dsa", "monklogs", "data structures", "alogirthms"]
 ---
 

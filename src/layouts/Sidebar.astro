@@ -1,0 +1,16 @@
+---
+import { sideBarLinks, type SideBarLink } from "@/constants/experience";
+---
+
+<div class="flex flex-col items-start">
+	{
+		sideBarLinks.map((link: SideBarLink, index: number) => (
+			<button
+				data-panel={link.panelId}
+				class={`mb-6 cursor-pointer text-base ${index === 0 ? "active-tab" : ""}`}
+			>
+				{link.title}{" "}
+			</button>
+		))
+	}
+</div>

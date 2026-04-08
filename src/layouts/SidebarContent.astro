@@ -1,0 +1,13 @@
+---
+import { sideBarLinks, type SideBarLink } from "@/constants/experience";
+---
+
+{
+	sideBarLinks.map((link: SideBarLink, index: number) => (
+		<div data-panel-id={link.panelId} class={index !== 0 ? "hidden" : ""}>
+			{link.content.map((paragraph) => (
+				<p class="mb-3">{paragraph}</p>
+			))}
+		</div>
+	))
+}

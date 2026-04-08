@@ -21,3 +21,21 @@ export function collectionDateSort(
 ) {
 	return b.data.publishDate.getTime() - a.data.publishDate.getTime();
 }
+
+
+export function getAge() {
+	const today = new Date();
+	const birth = new Date("2004-12-04");
+
+	let age = today.getFullYear() - birth.getFullYear();
+
+	const hasHadBirthdayThisYear =
+		today.getMonth() > birth.getMonth() ||
+		(today.getMonth() === birth.getMonth() && today.getDate() >= birth.getDate());
+
+	if (!hasHadBirthdayThisYear) {
+		age--;
+	}
+
+	return age;
+}

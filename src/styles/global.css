@@ -134,3 +134,8 @@
 	--tw-prose-quotes: var(--color-quote);
 	--tw-prose-th-borders: #666;
 }
+
+.active-tab {
+	font-weight: 700;
+	color: oklch(70.91% 0.1415 163.7);
+}

@@ -1,0 +1,52 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+import Sidebar from "@/layouts/Sidebar.astro";
+import SidebarContent from "@/layouts/SidebarContent.astro";
+
+const meta = {
+	description: "Experience",
+	title: "Experince",
+};
+---
+
+<script>
+	function activatePanels(): void {
+		const buttons = document.querySelectorAll<HTMLButtonElement>("[data-panel]");
+		const panels = document.querySelectorAll<HTMLElement>("[data-panel-id]");
+
+		buttons.forEach((btn: HTMLButtonElement) => {
+			btn.addEventListener("click", () => {
+				const target = btn.dataset.panel;
+				console.log("target: ", target);
+
+				panels.forEach((panel) => {
+					panel.classList.add("hidden");
+					let panelId = panel.dataset.panelId;
+					if (panelId === target) {
+						panel.classList.remove("hidden");
+					}
+				});
+				buttons.forEach((button) => {
+					button.classList.remove("active-tab");
+				});
+				btn.classList.add("active-tab");
+			});
+		});
+	}
+
+	activatePanels();
+</script>
+
+<PageLayout meta={meta}>
+	<h1 class="title mb-12">Experience</h1>
+
+	<div class="grid w-full grid-cols-10">
+		<div class="col-span-3">
+			<Sidebar />
+		</div>
+
+		<div class="border-accent col-span-7 border-l-2 pl-6">
+			<SidebarContent />
+		</div>
+	</div>
+</PageLayout>
