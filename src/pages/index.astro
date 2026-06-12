@@ -6,7 +6,7 @@ import PostPreview from "@/components/blog/PostPreview.astro";
 import SocialList from "@/components/SocialList.astro";
 import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
-import { collectionDateSort, getAge } from "@/utils/date";
+import { collectionDateSort } from "@/utils/date";
 
 // Posts
 const MAX_POSTS = 10;
@@ -31,16 +31,14 @@ const pinnedPosts = allPostsByDate
 
 <PageLayout meta={{ title: "Home" }}>
 	<section>
-		<h1 class="title mb-8">Hello, I'm <span class="text-accent">Damir Pavlik</span></h1>
+		<h1 class="title mb-8">I'm <span class="text-accent">Damir Pavlik</span></h1>
 		<p class="mb-4">
-			I’m a {getAge()} year old software developer with {new Date().getFullYear() - 2023} years of industry
-			experience, this is where I document the journey, not just the results.
+			...a software engineer with 3 years of software development experience and this is my piece of
+			the internet.
 		</p>
-		<p class="mb-6">
-			Here, you’ll find my thoughts on software development, lessons from building real world
-			projects, and posts about what I’m currently learning. I also share perspectives on various
-			topics and break down coding challenges I find interesting. I’m especially interested in
-			backend development, real-time systems, and building things from the ground up.
+		<p class="mb-4">
+			Here, I share thoughts shaped by building, breaking, and observing how systems behave over
+			time. I try to share my insights on various topics and reflect on shower thoughts.
 		</p>
 		<SocialList />
 	</section>

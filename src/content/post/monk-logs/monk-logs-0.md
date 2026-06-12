@@ -1,6 +1,6 @@
 ---
-title: "Monk Logs 0 (DSA): The Hook"
-description: "The Hook."
+title: "Monk Logs 0 (DSA): Prelude"
+description: "The Prelude."
 publishDate: "5 April 2026"
 updatedDate: "5 April 2026"
 tags: ["dsa", "monklogs", "data structures", "alogirthms"]
@@ -14,7 +14,7 @@ It’s easy to get comfortable building features, shipping code, and solving pro
 
 ## Why should you care about learning DSA?
 
-Because you’re already using it—constantly.
+Because you’re already using it, constantly.
 
 Every time you loop through an array, search for a value, sort a list, or manage data in memory, you’re relying on data structures and algorithms. They’re embedded in the languages you use, the frameworks you trust, and even the APIs you call. The difference is whether you understand what’s happening beneath the abstraction.
 

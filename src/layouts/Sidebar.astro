@@ -7,7 +7,7 @@ import { sideBarLinks, type SideBarLink } from "@/constants/experience";
 		sideBarLinks.map((link: SideBarLink, index: number) => (
 			<button
 				data-panel={link.panelId}
-				class={`flex-1 py-2 text-center text-sm sm:text-base ${index === 0 ? "active-tab" : ""} border-r border-gray-300 ${index === sideBarLinks.length - 1 ? "border-r-0" : ""} sm:border-r-0`}
+				class={`w-full flex-1 cursor-pointer py-2 text-center text-sm sm:text-left sm:text-base ${index === 0 ? "active-tab" : ""} border-r border-gray-300 ${index === sideBarLinks.length - 1 ? "border-r-0" : ""} sm:border-r-0`}
 			>
 				{link.title}
 			</button>
