@@ -4,6 +4,7 @@ description: "The Prelude."
 publishDate: "7 July 2026"
 updatedDate: "7 July 2026"
 tags: ["dsa", "monklogs", "data structures", "alogirthms"]
+pinned: true
 ---
 
 ## Intro
