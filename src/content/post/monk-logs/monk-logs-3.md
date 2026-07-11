@@ -1,8 +1,8 @@
 ---
 title: "Monk Logs 3 (DSA): Linear Search"
 description: "Linear Search Algorithm"
-publishDate: "8 April 2026"
-updatedDate: "8 April 2026"
+publishDate: "10 July 2026"
+updatedDate: "10 July 2026"
 tags: ["dsa", "monklogs", "data structures", "alogirthms"]
 ---
 

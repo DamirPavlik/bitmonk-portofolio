@@ -1,8 +1,8 @@
 ---
 title: "Monk Logs 0 (DSA): Prelude"
 description: "The Prelude."
-publishDate: "5 April 2026"
-updatedDate: "5 April 2026"
+publishDate: "7 July 2026"
+updatedDate: "7 July 2026"
 tags: ["dsa", "monklogs", "data structures", "alogirthms"]
 ---
 

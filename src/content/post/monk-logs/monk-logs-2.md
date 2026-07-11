@@ -1,8 +1,8 @@
 ---
 title: "Monk Logs 2 (DSA): Array"
 description: "DSA: Array"
-publishDate: "7 April 2026"
-updatedDate: "7 April 2026"
+publishDate: "9 July 2026"
+updatedDate: "9 July 2026"
 tags: ["dsa", "monklogs", "data structures", "alogirthms", "array"]
 ---
 
