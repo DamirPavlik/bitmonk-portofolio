@@ -1,68 +1,118 @@
 ---
-title: "Monk Logs 7 (DSA): Arrays"
-description: "Arrays"
-publishDate: "14 July 2026"
-updatedDate: "14 July 2026"
+title: "Monk Logs 7 (DSA): Linked Lists"
+description: "Linked Lists"
+publishDate: "16 July 2026"
+updatedDate: "16 July 2026"
 tags: ["dsa", "monklogs", "data structures", "alogirthms"]
 ---
 
-## Arrays
+## Linked Lists
 
-Most people think they know what an array is. Then they write `const a = []` in JavaScript and call it a day.
+As I already mentioned in my previous post, `const a = []` isn't an array. There's probably a real array hiding somewhere underneath it, but the thing you're actually holding definitely isn't one, because you can `push`, `pop`, and `insertAt` on it, and none of that is legal in array land.
 
-Well... you don't. I'm sorry. I know it hurts.
+So what's so bad about a real array, exactly?
+- You can't really delete anything. You can only overwrite a slot with something else.
+- You can't insert anything either. "Inserting" is really just writing over a slot that's already there.
+- It's ungrowable. It's one contiguous block of memory, and that block doesn't stretch.
 
-That thing you just made is flexible, resizable, and happily lets you shove whatever type you want into it. A real array does none of that. So let's talk about what an array actually is, underneath all the conveniences your language has been quietly wrapping around it.
+This is exactly the gap linked lists were built to fill.
 
-## What an array really is
+## Two flavors
 
-An array is an unbreakable chunk of memory of a fixed size, made up of a certain number of bytes, sitting right next to each other with nothing in between.
+There are two kinds of linked lists:
+- Singly linked
+- Doubly linked
 
-Here's the trick that makes it useful: memory itself doesn't know what it's storing. It's just 0s and 1s. It's the compiler that looks at a chunk of that memory and decides how to interpret it. If the compiler sees 4 contiguous bytes and decides "I'm going to treat these as a single number," congratulations, you now have a 32-bit integer.
+Both are node-based data structures — meaning instead of one big contiguous slab of memory, you get a bunch of small containers, scattered wherever, connected to each other by pointers instead of proximity.
 
-In a more traditional language, you'd declare that intention explicitly:
-
-```
-int a[3];
-```
-
-Which really just means: "Give me a slab of memory big enough for three integers, back to back, and let me call it `a`."
-
-## So what happens when you do `a[0]`?
-
-You're not really asking for "the first item." You're telling the computer: go to the memory address that `a` points to, then add an offset of `0` multiplied by the size of my type, because if I wanted position `1` instead, I'd need to skip ahead by a full 4 bytes (assuming 32-bit ints) to land in the right spot.
-
-The formula behind every array access, boiled down, is basically:
+## Singly linked lists
+Picture a chain of values where visiting node `A` also hands you a pointer to the next node, `B`. That's the whole idea:
 
 ```
-address = a + (width * offset)
+A -> B -> C -> D
 ```
 
-That's it. That's the entire trick. No searching, no walking through memory looking for your value, just simple arithmetic that jumps straight to the right address.
+This is singly linked because the arrow only goes one direction — `A` points to `B`, but `B` has no idea `A` exists. It's a one-way street.
 
-I think sitting with this for a second helps you appreciate arrays more. Today we mostly treat them as just "a slot to put data in." But underneath, it's raw memory, a bunch of 0s and 1s that the computer has to translate into something that looks, to us, like a friendly little box holding a number.
+Usually the raw value gets wrapped in a small container so it can carry that pointer along with it. In TypeScript, that container looks roughly like:
 
-## Operations on arrays
-- Getting: take the width of the type, multiply by the offset, jump straight to that memory address, and read what's there.
-- Insertion: doesn't exist. There is no "inserting" into an array. There is only overwriting what's already in a slot.
-- Deletion: works exactly the same way as getting, except instead of reading the value, you're setting it to null (or some equivalent empty state).
+```ts
+class Node<T> {
+  val: T;
+  next?: Node<T>;
+}
+```
 
-Notice the pattern: every single one of these operations reduces to the same formula, `address + width * offset`, plus whatever you do once you arrive.
+You hand me a value `T`, and I wrap a Node around it so it knows how to point at whatever comes next.
 
-## Big O
+One neat side effect of this structure: in JavaScript, if node `A` no longer has anything pointing to it, the garbage collector can tell nothing is reachable and safely collects it — even though `A` itself might still technically be "pointing forward" to `B`. Reachability, not existence, is what keeps something alive.
 
-Look closely at that formula again. Nowhere in it do we walk through the array, check every element, or search for anything. We already know exactly where to go, because we know the offset.
-Which means the runtime for getting, setting, or "deleting" any element is:
+## Doubly linked lists
+
+Doubly linked lists add one extra property: `prev`.
+
+```ts
+class Node<T> {
+  val: T;
+  next?: Node<T>;
+  prev?: Node<T>;
+}
+```
+
+Now every node points both forward and backward, which gives us bidirectional arrows:
+
+```
+A <-> B <-> C <-> D
+```
+
+You can walk from `A` to `B`, and just as easily walk back from `B` to `A`. Nice when you need to traverse in either direction, at the cost of one extra pointer per node.
+
+Insertion: faster than it has any right to be
+
+Here's where linked lists really start to shine. Say we want to insert `E` between `A` and `B`:
+
+```
+A <-> B <-> C <-> D
+      |
+      E
+```
+
+All we actually have to do is rewire a handful of pointers:
+
+- `A` now points forward to `E` instead of `B`
+- `E` points forward to `B`
+- `E` points backward to `A`
+- `B` now points backward to E instead of `A`
+
+That's it. No shifting every element down one slot like you'd have to in an array — just a small, fixed number of pointer reassignments.
+
+Are any of these steps affected by how many elements are in the list? No. Are they effectively constant time? Yes. (You could nitpick that property lookups in JS or TS carry their own overhead, but let's assume we're working in a more traditional, closer-to-the-metal language.) Writing a value into a fixed memory slot on an object is constant time, full stop.
+
+So insertion into a linked list is `O(1)`
+
+Nothing about the operation scales with the size of the list.
+
+Deletion: same story, different direction.
+
+Say we want to delete `C` from our doubly linked list. The idea is to snip `C` out and reconnect its neighbors directly to each other:
+
+```
+D = C.next
+B = C.prev
+B.next = D
+D.prev = B
+C.prev = C.next = null
+return C.val
+```
+
+`B` now points forward straight to `D`, skipping over `C` entirely. `D` points backward to `B` for the same reason. `C` gets its own pointers cleared out so nothing still (wrongly) thinks it's part of the chain, and we hand back its value on the way out.
+
+Big O for deletion
+
+Same story as insertion: nothing in that block of pseudocode depends on how many nodes are in the list, or how large the value being stored is. A fixed number of pointer reassignments, every time.
 
 ```
 O(1)
 ```
 
-Constant time. No matter how big the array is, reaching into a specific slot costs the exact same amount of work.
-
-## Arrays Are:
-- Fixed size: decided once, at creation, and never revisited.
-- Not growable: you can't stretch a real array to fit one more item.
-- Missing all the conveniences you're used to, no `push`, no `pop`, no `insertAt`. Those are all things higher-level data structures (and language runtimes) bolt on on top of an array, not things arrays give you for free.
-
-So the next time you write `const a = []` and casually `.push()` five things into it, just remember: somewhere underneath all that JavaScript convenience, there's a much stricter, much older idea of what an array actually is, a fixed slab of memory that only knows how to do one thing really, really fast.
+Which is really the whole pitch for linked lists: where arrays make you shift a wall of elements just to squeeze one more value in, linked lists let you just... point somewhere else instead.
