@@ -27,3 +27,6 @@ pnpm-debug.log*
 # example.js
 src/example.js
 src/content/post/monk-logs/ideas.md
+
+#  content
+/my-content
